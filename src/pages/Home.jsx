@@ -8,11 +8,14 @@ import { onAuthStateChanged } from "firebase/auth";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState(null);
+  const [authLoaded, setAuthLoaded] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setAuthLoaded(true);
+      console.log(" Firebase auth loaded. user is:", currentUser);
     });
     return () => unsubscribe();
   }, []);
@@ -22,15 +25,14 @@ export default function Home() {
       const allPosts = await getAllPosts();
       setPosts(allPosts);
     };
-
     fetchPosts();
   }, []);
 
   return (
     <div className="min-h-screen p-4">
-      {user !== undefined && user !== null && (
+      {authLoaded && user && (
         <>
-          {console.log("AddPostBtn visible — user is:", user)}
+          {console.log("👀 Rendering AddPostBtn because user =", user.email)}
           <AddPostBtn />
         </>
       )}
