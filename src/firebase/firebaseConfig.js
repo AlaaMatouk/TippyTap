@@ -1,7 +1,10 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -17,6 +20,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+
+setPersistence(auth, browserLocalPersistence)
+  .then(() => {
+    console.log(" Auth persistence set to localStorage");
+  })
+  .catch((error) => {
+    console.error(" Error setting auth persistence", error.message);
+  });
+
 const db = getFirestore(app);
 
 export { app, auth, db };

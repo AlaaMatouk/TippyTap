@@ -28,7 +28,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen p-4">
-      {user && <AddPostBtn />}
+      {user !== undefined && user !== null && (
+        <>
+          {console.log("AddPostBtn visible — user is:", user)}
+          <AddPostBtn />
+        </>
+      )}
 
       <h1 className="text-center text-2xl font-bold mb-6">All Posts</h1>
 
