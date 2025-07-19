@@ -1,18 +1,28 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase/firebaseConfig";
 
 export default function AddPostBtn() {
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert("You need to log in to create a post!");
+      navigate("/login");
+    } else {
+      navigate("/add-post");
+    }
+  };
+
   return (
-    <div>
-      <button
-        onClick={() => navigate("/add-post")}
-        style={{ background: "var(--primary)", fontWeight: "bold" }}
-        className="btn  rounded-full fixed bottom-6 right-6 z-50 shadow-lg "
-      >
-        + Add Post
-      </button>
-    </div>
+    <button
+      onClick={handleClick}
+      style={{ backgroundColor: "var(--gray)", color: "var(--primary)" }}
+      className="btn fixed bottom-4 right-4 z-50 shadow-lg rounded-full"
+    >
+      + Add Post
+    </button>
   );
 }
