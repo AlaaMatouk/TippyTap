@@ -50,6 +50,7 @@ export default function Login({ onSwitch }) {
         <EmailInput onChange={handleChange} />
         <PasswordInput onChange={handleChange} />
         <button
+          type="button"
           onClick={handleGoogleLogin}
           style={{ color: "var(--gray)" }}
           className="btn bg-white border-[#e5e5e5]"
