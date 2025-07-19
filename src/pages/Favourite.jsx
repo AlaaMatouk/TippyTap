@@ -21,6 +21,9 @@ export default function Favourite() {
 
     fetchFavorites();
   }, []);
+  const handleUnfavorite = (postId) => {
+    setFavorites((prev) => prev.filter((post) => post.id !== postId));
+  };
 
   return (
     <div className="min-h-screen p-4">
@@ -40,6 +43,7 @@ export default function Favourite() {
             imageUrl={post.imageUrl}
             authorName={post.authorName}
             inFavoritesPage={true}
+            onUnfavorite={handleUnfavorite}
           />
         ))
       ) : (
