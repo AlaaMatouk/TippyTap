@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toggleFavorite, isPostFavorited } from "../firebase/favorites";
 
-export default function FavBtn({ postId, inFavoritesPage }) {
+export default function FavBtn({ postId, inFavoritesPage, onUnfavorite }) {
   const [isFav, setIsFav] = useState(false);
 
   useEffect(() => {
@@ -22,6 +22,10 @@ export default function FavBtn({ postId, inFavoritesPage }) {
 
     await toggleFavorite(postId, isFav);
     setIsFav(!isFav);
+
+    if (inFavoritesPage && isFav && onUnfavorite) {
+      onUnfavorite(postId);
+    }
   };
 
   return (

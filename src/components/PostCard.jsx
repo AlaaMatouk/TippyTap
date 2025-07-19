@@ -10,6 +10,7 @@ export default function PostCard({
   authorName,
   inFavoritesPage,
   actions,
+  onUnfavorite,
 }) {
   console.log("imageUrl:", imageUrl);
 
@@ -17,7 +18,11 @@ export default function PostCard({
     <div className="max-h-[600px] flex justify-center mt-10 px-4">
       <div className="card bg-base-100 w-full max-w-[700px] shadow-md p-4 sm:p-6">
         <figure className="rounded-lg overflow-hidden">
-          <FavBtn postId={id} inFavoritesPage={inFavoritesPage} />
+          <FavBtn
+            postId={id}
+            inFavoritesPage={inFavoritesPage}
+            onUnfavorite={onUnfavorite}
+          />
 
           <img
             className="max-h-[350px] w-full object-cover"
