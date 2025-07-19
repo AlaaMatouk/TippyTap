@@ -5,28 +5,37 @@ import "./App.css";
 import MyPosts from "./pages/MyPosts";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Signup from "./pages/Register";
 import EditPost from "./pages/EditPost";
-import Button from "./components/UploadButton";
+import Navbar from "./components/Navbar";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import Register from "./pages/Register";
+import AddPost from "./pages/AddPost";
+import Profile from "./pages/Profile";
+import LoginAndRegister from "./pages/LoginAndRegister";
+import Favourite from "./pages/Favourite";
+import Post from "./pages/Post";
 
 function App() {
-  // const router = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <Home />,
-  //     children: [
-  //       { path: "/muposts", element: <MyPosts /> },
-  //       { path: "/login", element: <Loginn /> },
-  //       { path: "/signup", element: <Signup /> },
-  //       { path: "/edit", element: <EditPost /> },
-  //     ],
-  //   },
-  // ]);
+  const location = useLocation();
+  const hideNavbarRoutes = ["/login", "/register"];
   return (
-    // <RouterProvider router={router}>
-    //   <Button></Button>
-    // </RouterProvider>
-    <Button />
+    <>
+      <div>
+        {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="login" element={<LoginAndRegister />} />
+          <Route path="register" element={<Register />} />
+          <Route path="my-posts" element={<MyPosts />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="add-post" element={<AddPost />} />
+          <Route path="favorites" element={<Favourite />} />
+          <Route path="/edit-post/:id" element={<AddPost isEdit={true} />} />
+          <Route path="/post/:id" element={<Post />} />
+        </Routes>
+      </div>
+    </>
   );
 }
 
